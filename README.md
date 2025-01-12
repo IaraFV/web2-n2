@@ -32,7 +32,6 @@ O projeto consiste em uma API RESTful para o gerenciamento de salas. A aplica√ß√
 - bcrypt
 - multer
 - PDFKit
-- cors
 - supertest
 
 ---
