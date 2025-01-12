@@ -1,6 +1,6 @@
 const express = require('express');
 const jwt = require('jwt-simple');
-const bcrypt = require('bcrypt'); // Importa o bcrypt
+const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const router = express.Router();
 
