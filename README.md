@@ -6,6 +6,7 @@
 - [Sobre o Projeto](#-sobre-o-projeto)
 - [Tecnologias Utilizadas](#-tecnologias-utilizadas)
 - [Funcionalidades](#-funcionalidades)
+- [Arquitetura](#-arquitetura)
 - [Instalação e Uso](#-instalação-e-uso)
 - [Rotas da API](#-rotas-da-api)
 - [Testes](#-testes)
@@ -43,6 +44,10 @@ O projeto consiste em uma API RESTful para o gerenciamento de salas. A aplicaç�
 - Armazenamento de dados no MongoDB.
 
 ---
+
+## 🏗 Arquitetura
+![Arquitetura](https://private-user-images.githubusercontent.com/80013300/402390990-20a821d5-5d3c-4337-9e74-891e17cfa832.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MzY3MjA4MzIsIm5iZiI6MTczNjcyMDUzMiwicGF0aCI6Ii84MDAxMzMwMC80MDIzOTA5OTAtMjBhODIxZDUtNWQzYy00MzM3LTllNzQtODkxZTE3Y2ZhODMyLmpwZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTAxMTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwMTEyVDIyMjIxMlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWNkYzc2ZGNjZGY5ZjgyOWRmNTlmNGNiYmU1NzRhODA1N2QzNWU1N2M2YzRlODU0Y2EwMWVjMmFkOGQyMzc5ZTkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.AhxAa-mHsuOIiAGb_XEhLfOxv7sPPYL4tAhaDqYGTg8)
+
 
 ## 📦 Instalação e Uso
 
