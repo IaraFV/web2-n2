@@ -1,9 +1,6 @@
 # 🏫 Sistema de Gerenciamento de Salas
 
 
-
----
-
 ## 📋 Índice
 
 - [Sobre o Projeto](#-sobre-o-projeto)
@@ -137,7 +134,7 @@ A API possui testes automatizados utilizando **Supertest** e **Jest** para valid
 
 - `tests/auth.test.js` - Testes relacionados à autenticação de usuários.
 - `tests/user.test.js` - Testes relacionados ao cadastro e manipulação de usuários.
-- `tests/laboratorio.test.js` - Testes
+- `tests/laboratorio.test.js` - Testes relacionados a rota de criar e gerar relatório de laboratórios.
 
 
 ---
