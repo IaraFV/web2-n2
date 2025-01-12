@@ -19,6 +19,13 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
   app.use('/create', require('./routes/user'));
   app.use('/laboratorio', checkWeekday, authenticateToken, require('./routes/laboratorio'));
 
-app.listen(process.env.PORT, () => {
-  console.log(`Servidor rodando na porta ${process.env.PORT}`);
-});
+
+  if (process.env.NODE_ENV !== 'test') {
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+      console.log(`Servidor rodando na porta ${PORT}`);
+    });
+  }
+  
+  module.exports = app; 
+  
