@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const { checkWeekday } = require('./middlewares/checkWeekday');
+const authenticateToken  = require('./middlewares/authenticateToken');
 
 dotenv.config();
 
@@ -15,8 +16,8 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
   .catch((err) => console.log(err));
 
   app.use('/logar', require('./routes/auth'));
-  app.use('/usuario', require('./routes/user'));
-  app.use('/laboratorio', checkWeekday, require('./routes/laboratorio'));
+  app.use('/create', require('./routes/user'));
+  app.use('/laboratorio', checkWeekday, authenticateToken, require('./routes/laboratorio'));
 
 app.listen(process.env.PORT, () => {
   console.log(`Servidor rodando na porta ${process.env.PORT}`);
