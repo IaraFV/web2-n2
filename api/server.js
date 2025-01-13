@@ -2,8 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const { checkWeekday } = require('./middlewares/checkWeekday');
-const authenticateToken  = require('./middlewares/authenticateToken');
+const { checkWeekday } = require('../middlewares/checkWeekday');
+const authenticateToken  = require('../middlewares/authenticateToken');
 
 dotenv.config();
 
@@ -15,9 +15,9 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
   .then(() => console.log("Conectado ao MongoDB"))
   .catch((err) => console.log(err));
 
-  app.use('/logar', require('./routes/auth'));
-  app.use('/create', require('./routes/user'));
-  app.use('/laboratorio', checkWeekday, authenticateToken, require('./routes/laboratorio'));
+  app.use('/logar', require('../routes/auth'));
+  app.use('/create', require('../routes/user'));
+  app.use('/laboratorio', checkWeekday, authenticateToken, require('../routes/laboratorio'));
 
 
   if (process.env.NODE_ENV !== 'test') {
@@ -27,5 +27,5 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
     });
   }
   
-  module.exports = app; 
+module.exports = app; 
   

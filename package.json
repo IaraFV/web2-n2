@@ -2,13 +2,13 @@
   "name": "web2-n2",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "api/server.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
     "test": "jest",
-    "start": "node server.js"
+    "start": "node api/server.js"
   },
   "keywords": [],
   "author": "",
