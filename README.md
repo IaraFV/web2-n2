@@ -10,7 +10,7 @@
 - [Instalação e Uso](#-instalação-e-uso)
 - [Rotas da API](#-rotas-da-api)
 - [Testes](#-testes)
-- [Link da API (Vercel)](#-link-da-api-vercel)
+- [Link da API (render)](#-link-da-api-render)
 
 ---
 
@@ -78,7 +78,7 @@ O projeto consiste em uma API RESTful para o gerenciamento de salas. A aplicaç�
 
 4. Inicie o servidor:
    ```bash
-   npm start
+   api/serve.js
    ```
 
 ---
@@ -144,6 +144,6 @@ A API possui testes automatizados utilizando **Supertest** e **Jest** para valid
 
 ---
 
-## 🌐 Link da API (Vercel)
+## 🌐 Link da API (render)
 
-**Em breve...**
+**https://web2-n2.onrender.com**
