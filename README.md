@@ -78,7 +78,7 @@ O projeto consiste em uma API RESTful para o gerenciamento de salas. A aplica√ß√
 
 4. Inicie o servidor:
    ```bash
-   api/serve.js
+   api/server.js
    ```
 
 ---
