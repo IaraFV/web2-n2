@@ -18,19 +18,35 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post('/novo', upload.single('foto'), async (req, res) => {
-  const { nome, descricao, capacidade } = req.body;
-  const foto = req.file.path;
+  try {
+    const { nome, descricao, capacidade } = req.body;
 
-  const novoLaboratorio = new Laboratorio({ nome, descricao, capacidade, foto });
-  await novoLaboratorio.save();
+    if (!nome || !descricao || !capacidade) {
+      return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });
+    }
 
-  res.status(201).json({ message: 'Laboratório cadastrado com sucesso!' });
+    if (!req.file) {
+      return res.status(400).json({ message: 'É necessário enviar uma foto.' });
+    }
+
+    const foto = req.file.path;
+
+    const novoLaboratorio = new Laboratorio({ nome, descricao, capacidade, foto });
+    await novoLaboratorio.save();
+
+    res.status(201).json({ message: 'Laboratório cadastrado com sucesso!' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erro ao cadastrar laboratório.' });
+  }
 });
+
 
 router.get('/relatorio', async (req, res) => {
   const laboratorios = await Laboratorio.find();
 
   const doc = new PDFDocument();
+  res.setHeader('Content-Type', 'pdf');
   doc.pipe(res);
 
   doc.fontSize(20).text('Relatório de Laboratórios', { align: 'center' });

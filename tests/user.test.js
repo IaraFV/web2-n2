@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../server');
+const app = require('../api/server');
 const mongoose = require('mongoose');
 const Usuario = require('../models/User');
 
@@ -8,14 +8,14 @@ afterAll(async () => {
 });
 
 afterEach(async () => {
-  await Usuario.deleteMany({ email: /teste@teste.com$/ });
+  await Usuario.deleteMany({ email: /teste1@teste.com$/ });
 });
 
 describe('POST /create/user', () => {
   it('Deve registrar um novo usuário com sucesso', async () => {
     const response = await request(app).post('/create/user').send({
-      nome: 'Usuário Teste',
-      email: 'teste@teste.com',
+      nome: 'Usuário Teste1',
+      email: 'teste1@teste.com',
       senha: '123456',
     });
 
@@ -26,13 +26,13 @@ describe('POST /create/user', () => {
   it('Deve retornar erro ao tentar registrar um usuário com e-mail já existente', async () => {
     await Usuario.create({
       nome: 'Usuário Teste',
-      email: 'teste@teste.com',
+      email: 'teste1@teste.com',
       senha: 'senhaSegura',
     });
 
     const response = await request(app).post('/create/user').send({
       nome: 'Usuário Teste',
-      email: 'teste@teste.com',
+      email: 'teste1@teste.com',
       senha: 'novaSenha',
     });
 

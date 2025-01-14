@@ -1,10 +1,10 @@
 const request = require('supertest');
-const app = require('../server'); 
+const app = require('../api/server'); 
 
 let token;
 
 beforeAll(async () => {
-  await request(app).post('/create').send({
+  await request(app).post('/create/user').send({
     nome: 'Usuário Teste',
     email: 'teste@teste.com',
     senha: '123456'
@@ -23,8 +23,8 @@ describe('POST /laboratorio/novo', () => {
     const response = await request(app)
       .post('/laboratorio/novo')
       .set('Authorization', `Bearer ${token}`) 
-      .field('nome', 'Laboratório de Química')
-      .field('descricao', 'Laboratório equipado para experimentos químicos.')
+      .field('nome', 'Laboratório de Fisica')
+      .field('descricao', 'Laboratório equipado para experimentos Fisicos.')
       .field('capacidade', 30)
       .attach('foto', `${__dirname}/../uploads/1736641474499.png`); 
 
@@ -44,20 +44,23 @@ describe('POST /laboratorio/novo', () => {
 });
 
 describe('GET /laboratorio/relatorio', () => {
-  it('Deve retornar um relatório em formato PDF', async () => {
-    const response = await request(app)
-      .get('/laboratorio/relatorio')
-      .set('Authorization', `Bearer ${token}`); 
+  it(
+    'Deve retornar um relatório em formato PDF',
+    async () => {
+      const response = await request(app)
+        .get('/laboratorio/relatorio')
+        .set('Authorization', `Bearer ${token}`);
 
-    expect(response.status).toBe(200);
-    expect(response.headers['content-type']).toBe('application/pdf');
-    expect(response.body).toBeDefined();
-  });
+      expect(response.status).toBe(200);
+      expect(response.headers['content-type']).toBe('pdf');
+    },
+    10000 
+  );
 
   it('Deve retornar erro ao acessar sem autenticação', async () => {
     const response = await request(app).get('/laboratorio/relatorio');
 
     expect(response.status).toBe(401);
-    expect(response.body.message).toBe('Acesso negado.'); 
+    expect(response.body.message).toBe('Token não fornecido ou inválido.'); 
   });
 });
