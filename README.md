@@ -133,7 +133,7 @@ O projeto consiste em uma API RESTful para o gerenciamento de salas. A aplicaç�
 
 ## 🧪 Testes
 
-A API possui testes automatizados utilizando **Supertest** e **Jest** para validar as principais funcionalidades, como login, cadastro de usuários e gerenciamento de laboratórios. Os testes garantem que a API responde conforme esperado, identificando possíveis falhas.
+A API possui testes automatizados utilizando **Supertest** para validar as principais funcionalidades, como login, cadastro de usuários e gerenciamento de laboratórios. Os testes garantem que a API responde conforme esperado, identificando possíveis falhas.
 
 ### 📂 Arquivos de Teste
 
