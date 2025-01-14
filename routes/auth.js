@@ -1,18 +1,17 @@
-const express = require('express');
-const jwt = require('jwt-simple');
-const bcrypt = require('bcrypt');
-const User = require('../models/User');
+const express = require("express");
+const jwt = require("jwt-simple");
+const bcrypt = require("bcrypt");
+const User = require("../models/User");
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   const { email, senha } = req.body;
 
   try {
     const user = await User.findOne({ email });
 
-    
     if (!user || !(await bcrypt.compare(senha, user.senha))) {
-      return res.status(401).json({ message: 'Credenciais inválidas.' });
+      return res.status(401).json({ message: "Credenciais inválidas." });
     }
 
     const payload = { email };
@@ -21,7 +20,7 @@ router.post('/', async (req, res) => {
     res.json({ token });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Erro interno no servidor.' });
+    res.status(500).json({ message: "Erro interno no servidor." });
   }
 });
 
