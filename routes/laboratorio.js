@@ -4,6 +4,9 @@ const Laboratorio = require("../models/Laboratorio");
 const fs = require("fs");
 const path = require("path");
 const PDFDocument = require("pdfkit");
+
+const { io } = require("../api/server");
+
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -50,7 +53,7 @@ router.post("/novo", upload.single("foto"), async (req, res) => {
 
 router.get("/relatorio", async (req, res) => {
   const laboratorios = await Laboratorio.find();
-  
+
   const doc = new PDFDocument();
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "attachment; filename=relatorio.pdf");
@@ -93,6 +96,47 @@ router.get("/relatorio", async (req, res) => {
   });
 
   doc.end();
+});
+
+router.post("/bloquear/:lab", (req, res) => {
+  const { lab } = req.params;
+
+  if (!lab) {
+    return res
+      .status(400)
+      .json({ message: "Nome do laboratório é obrigatório." });
+  }
+
+  io.emit(`bloquear(${lab})`, {
+    message: `O laboratório ${lab} foi bloqueado!`,
+  });
+
+  res
+    .status(200)
+    .json({ message: `Laboratório ${lab} bloqueado com sucesso!` });
+});
+
+const uploadVideo = multer({
+  storage,
+  limits: { fileSize: 100 * 1024 * 1024 },
+}).single("video");
+
+router.post("/uploadVideo", uploadVideo, (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: "É necessário enviar um vídeo." });
+    }
+
+    const videoPath = req.file.path;
+
+    res.status(201).json({
+      message: "Vídeo enviado com sucesso!",
+      videoPath: videoPath,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Erro ao enviar o vídeo." });
+  }
 });
 
 module.exports = router;
