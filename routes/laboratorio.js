@@ -139,4 +139,10 @@ router.post("/uploadVideo", uploadVideo, (req, res) => {
   }
 });
 
+let temperaturaAtual = 25;
+
+router.get("/temperaturaAtual", (req, res) => {
+  res.json({ temperatura: temperaturaAtual });
+});
+
 module.exports = router;

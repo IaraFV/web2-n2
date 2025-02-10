@@ -42,6 +42,12 @@ app.use(
 io.on("connection", (socket) => {
   console.log("Usuário conectado");
 
+  socket.on("novaTemperatura", (temp) => {
+    console.log(`Nova temperatura recebida: ${temp}`);
+    temperaturaAtual = temp; 
+    io.emit("atualizarTemperatura", temp); 
+  });
+
   socket.on("disconnect", () => {
     console.log("Usuário desconectado");
   });
