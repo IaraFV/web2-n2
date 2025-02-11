@@ -141,23 +141,21 @@ router.post("/uploadVideo", uploadVideo, (req, res) => {
 
 let temperaturaAtual = 25;
 
+// Rota para receber a temperatura
+router.post("/temperaturaAtual", (req, res) => {
+  const { temperatura } = req.body;
+  if (temperatura) {
+    temperaturaAtual = temperatura; // Atualiza a temperatura
+    res.status(200).json({ message: "Temperatura recebida com sucesso!" });
+  } else {
+    res.status(400).json({ message: "Temperatura não fornecida." });
+  }
+});
+
+// Rota para retornar a temperatura
 router.get("/temperaturaAtual", (req, res) => {
   res.json({ temperatura: temperaturaAtual });
 });
 
-router.post("/temperatura", (req, res) => {
-  const { temperatura } = req.body;
-
-  if (!temperatura) {
-    return res.status(400).json({ message: "Temperatura não informada." });
-  }
-
-  console.log(`Temperatura recebida: ${temperatura}`);
-  temperaturaAtual = temperatura;
-  
-  io.emit("atualizarTemperatura", temperaturaAtual); 
-
-  res.status(200).json({ message: "Temperatura atualizada com sucesso." });
-});
 
 module.exports = router;
