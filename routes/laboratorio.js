@@ -5,8 +5,6 @@ const fs = require("fs");
 const path = require("path");
 const PDFDocument = require("pdfkit");
 
-const { io } = require("../api/server");
-
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -98,6 +96,8 @@ router.get("/relatorio", async (req, res) => {
   doc.end();
 });
 
+const laboratoriosBloqueados = new Set();
+
 router.post("/bloquear/:lab", (req, res) => {
   const { lab } = req.params;
 
@@ -107,13 +107,15 @@ router.post("/bloquear/:lab", (req, res) => {
       .json({ message: "Nome do laboratório é obrigatório." });
   }
 
-  io.emit(`bloquear(${lab})`, {
-    message: `O laboratório ${lab} foi bloqueado!`,
-  });
+  laboratoriosBloqueados.add(lab);
 
   res
     .status(200)
     .json({ message: `Laboratório ${lab} bloqueado com sucesso!` });
+});
+
+router.get("/bloqueados", (req, res) => {
+  res.status(200).json({ bloqueados: Array.from(laboratoriosBloqueados) });
 });
 
 const uploadVideo = multer({
@@ -128,10 +130,12 @@ router.post("/uploadVideo", uploadVideo, (req, res) => {
     }
 
     const videoPath = req.file.path;
+    const videoName = req.file.filename;
 
     res.status(201).json({
       message: "Vídeo enviado com sucesso!",
-      videoPath: videoPath,
+      videoPath,
+      videoName,
     });
   } catch (error) {
     console.error(error);
@@ -139,28 +143,37 @@ router.post("/uploadVideo", uploadVideo, (req, res) => {
   }
 });
 
+router.get("/video/:nomeArquivo", (req, res) => {
+  const { nomeArquivo } = req.params;
+  const videoPath = path.join(__dirname, "../uploads", req.file.filename);
+
+  if (!fs.existsSync(videoPath)) {
+    return res.status(404).json({ message: "Vídeo não encontrado." });
+  }
+
+  res.setHeader("Content-Type", "video/mp4");
+  res.sendFile(videoPath);
+});
+
 let temperaturaAtual = 25;
 
-// Rota para receber a temperatura
 router.post("/temperaturaAtual", (req, res) => {
   const { temperatura } = req.body;
   if (temperatura) {
-    temperaturaAtual = temperatura; // Atualiza a temperatura
+    temperaturaAtual = temperatura;
     res.status(200).json({ message: "Temperatura recebida com sucesso!" });
   } else {
     res.status(400).json({ message: "Temperatura não fornecida." });
   }
 });
 
-// Rota para retornar a temperatura
 router.get("/temperaturaAtual", (req, res) => {
   res.json({ temperatura: temperaturaAtual });
 });
 
-router.post('/ligarLuz', (req, res) => {
+router.post("/ligarLuz", (req, res) => {
   statusLuz = "Ligado";
   res.status(200).json({ message: "Luz ligada com sucesso!" });
 });
-
 
 module.exports = router;
