@@ -160,5 +160,4 @@ router.post("/temperatura", (req, res) => {
   res.status(200).json({ message: "Temperatura atualizada com sucesso." });
 });
 
-
 module.exports = router;
