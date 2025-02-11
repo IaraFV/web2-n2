@@ -157,5 +157,10 @@ router.get("/temperaturaAtual", (req, res) => {
   res.json({ temperatura: temperaturaAtual });
 });
 
+router.post('/ligarLuz', (req, res) => {
+  statusLuz = "Ligado";
+  res.status(200).json({ message: "Luz ligada com sucesso!" });
+});
+
 
 module.exports = router;
